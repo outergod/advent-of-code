@@ -5,20 +5,16 @@
 
 (def input (slurp (io/resource "day-6")))
 
-(defn solve-1 [input]
+(defn solve [input]
   (->> input
        (iterate (partial drop 1))
        (take-while #(>= (count %) 4))
        (map #(->> % (take 4) sort dedupe count))
        (take-while #(< % 4))
-       count
-       (+ 4)))
+       count))
+
+(defn solve-1 [input]
+  (->> input solve (+ 4)))
 
 (defn solve-2 [input]
-  (->> input
-       (iterate (partial drop 1))
-       (take-while #(>= (count %) 14))
-       (map #(->> % (take 14) sort dedupe count))
-       (take-while #(< % 14))
-       count
-       (+ 14)))
+  (->> input solve (+ 14)))
