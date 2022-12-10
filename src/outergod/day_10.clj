@@ -10,17 +10,6 @@
       "addx" {:instruction :addx :value (Integer/parseInt value)}
       "noop" {:instruction :noop})))
 
-(defn solve-1 [input]
-  (loop [cycle 0 register 1 addx nil instructions (s/split-lines input)]
-    (cond
-      addx (recur (inc cycle) (+ register addx) nil instructions)
-      instructions (let [[instruction & instructions] instructions
-                         {:keys [instruction value]} (parse-instruction instruction)]
-                     (case instruction
-                       :addx (recur (inc cycle) register value instructions)
-                       :noop (recur (inc cycle) register nil instructions)))
-      :default [cycle register])))
-
 (defn step [[cycle register addx instructions]]
   (cond
     addx [(inc cycle) (+ register addx) nil instructions]
