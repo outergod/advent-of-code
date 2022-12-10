@@ -24,14 +24,14 @@
   (iterate step [1 1 nil (s/split-lines input)]))
 
 (defn solve-1 [input]
-  (let [seq (iterate step [1 1 nil (s/split-lines input)])
+  (let [seq (input-seq input)
         cycles [20 60 100 140 180 220]]
     (reduce + (map #(let [[cycle register & _] (nth seq (dec %))]
                       (* cycle register))
                    cycles))))
 
 (defn solve-2 [input]
-  (let [seq (iterate step [1 1 nil (s/split-lines input)])]
+  (let [seq (input-seq input)]
     (println
      (s/join \newline
              (map (partial apply str)
