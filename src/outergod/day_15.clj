@@ -48,14 +48,15 @@
                                           (<= x n) (<= y n)))
                                    (map (partial mapv + sensor)
                                         (manhattan-outline (inc signal)))))
-                         coll)]
-    (some
-       (fn [beacon] (when (not-any?
-                           (fn [{:keys [sensor signal]}]
-                             (<= (sensor-distance sensor beacon) signal))
-                           coll)
-                      beacon))
-       outlines)))
+                         coll)
+        [x y] (some
+               (fn [beacon] (when (not-any?
+                                   (fn [{:keys [sensor signal]}]
+                                     (<= (sensor-distance sensor beacon) signal))
+                                   coll)
+                              beacon))
+               outlines)]
+    (+ (* x n) y)))
 
 (comment
   "Too resource hungry"
